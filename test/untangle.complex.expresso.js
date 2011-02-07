@@ -139,7 +139,7 @@ var wrong =
         
 var untangle = require('trees').untangle
   , equals = require('trees').equals
-  , inspect = require('inspect')
+  , inspect = require('sys').inspect
   , assert = require('assert')
   , log = console.log
   

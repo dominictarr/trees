@@ -1,7 +1,7 @@
 {
   "name": "trees",
   "description": "library of handy tree and graph functions",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "homepage": "https://github.com/dominictarr/trees",
   "repository": "git://github.com/dominictarr/trees.git",
   "author": "Dominic Tarr <dominic.tarr@gmail.com>",
@@ -16,7 +16,6 @@
   "devDependencies":{
     "expresso": "0.7.x"
   , "should": ">=0.0.4"
-  , "style": "0.0.x"
   },
   "scripts": {
     "test": "expresso test/*.js"

@@ -1,6 +1,13 @@
 
+exports.untangle = require('./untangle')
+exports.sort = require('./sort')
+exports.equals = require('./equals')
+
+
 var traverser = require('traverser')
   , untangle = require('./untangle')
+
+
 exports.branches = branches
 
 function branches(tree){
