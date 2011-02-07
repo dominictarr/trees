@@ -4,11 +4,12 @@
   generates a colour coded message to show the difference.
 
 */
-var equals = require('trees/equals')
-  , inspect = require('inspect')
-  , log = require('logger')
+var equals = require('trees').equals
+  , inspect = require('sys').inspect
+  , test = require('assert')
+  , log = console.log
 //  , curry = require('curry')
-exports ['can compare trees correctly'] = function (test){
+exports ['can compare trees correctly'] = function (){
 
   /*on a tree, only values are compared, and references are assumed not to exist.
   */
@@ -81,7 +82,7 @@ exports ['can compare trees correctly'] = function (test){
 }
 
 
-exports ['can check for structure type tree/dag/cyclic'] = function (test){
+exports ['can check for structure type tree/dag/cyclic'] = function (){
 
   var a,b,c // for dags
   var x,y,z // for dags
@@ -117,7 +118,7 @@ exports ['can check for structure type tree/dag/cyclic'] = function (test){
   }
 }
 
-exports ['string equals'] = function (test){
+exports ['string equals'] = function (){
   var
     neq = 
       [ [ 'a','b' ,0 ]

@@ -137,12 +137,13 @@ var wrong =
         , inspect: REF4
         , 'render/render2': {traverser: {'traverser/traverser2': REF8}, logger: REF7} } } } } }
         
-var untangle = require('trees/untangle2')
-  , equals = require('trees/equals')
+var untangle = require('trees').untangle
+  , equals = require('trees').equals
   , inspect = require('inspect')
-  , assert = require('c-assert')
-  , log = require('logger')
-exports ['untangle complex graphs'] = function (test){
+  , assert = require('assert')
+  , log = console.log
+  
+exports ['untangle complex graphs'] = function (){
 
 var untangled = untangle.untangle(complex)
 var retangled =  untangle.retangle(untangled)
@@ -166,9 +167,9 @@ var retangled =  untangle.retangle(untangled)
   assert.equal(inspect(jsoned),inspect(complex))
   assert.ok(equals.graphs(retangled,complex).eq,'equals.graphs returned equal for retangled and complex ')
   assert.ok(equals.graphs(jsoned,complex).eq,'equals.graphs returned equal for retangled and complex ')
+
 //  log(equals.graphs(wrong,complex).message)// I don't have the rendering good enough... so this is not readible.
 //  assert.ok(equals.graphs(json,complex))
 //  assert.equal(inspect(json),inspect(complex))
-  
 
 }

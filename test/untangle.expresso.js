@@ -1,9 +1,10 @@
 
-var t = require('trees/untangle2')
-  , equals = require('trees/equals')
-  , inspect = require('inspect')
+var t = require('trees').untangle
+  , equals = require('trees').equals
+  , inspect = require('sys').inspect
+  , test = require('assert')
   
-exports ['can remove repeats from a object to be JSONed'] = function (test){
+exports ['can remove repeats from a object to be JSONed'] = function (){
   var a
     , x = [a = [1,2,3],a]
     , y = [[1,2,3],[1,2,3]]
@@ -16,7 +17,7 @@ exports ['can remove repeats from a object to be JSONed'] = function (test){
   var z = t.retangle(t.untangle(x))
   test.strictEqual(x[0],x[1])
 }
-exports ['can remove cycles from a object to be JSONed'] = function (test){
+exports ['can remove cycles from a object to be JSONed'] = function (){
   var x = [1]
     x.push(x)
     
@@ -27,7 +28,7 @@ exports ['can remove cycles from a object to be JSONed'] = function (test){
 
   test.strictEqual(z,z[1])
 }
-exports ['handles null values'] = function (test){
+exports ['handles null values'] = function (){
   var x = [1,2,3,null,4]
     , $x = t.untangle(x)
     , _x = t.retangle($x)
@@ -36,7 +37,7 @@ exports ['handles null values'] = function (test){
 }
 
 
-exports ['can untangle and serialize to JSON and parse back'] = function (test){
+exports ['can untangle and serialize to JSON and parse back'] = function (){
   var x = [10,20,30], a, b, c = {a : a = [1,2,3], x: x}, e, f, d = [1,2,3,34,x,6534]
   x.push(x)
   c.c = c

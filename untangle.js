@@ -1,94 +1,75 @@
+//untangle2.js
 
-var traverser = require('traverser')
+//just thought of a much more space-efficent way.
+
+var traverse = require('traverser')
   , assert = require('assert')
-  , render = require('render/render2')
 
 exports.retangle = retangle
 exports.untangle = untangle
 exports.stringify = stringify
 exports.parse = parse
 
-/*
-this will fail if you use the forbidden keys,
- '*=','*@' and '*^'
-
-to be totally robust, it should escape them.
-
-instead it throws an exception, which is better than a mysterious error.
-*/
-  function setPath(obj,path,value){
-    for(var i = 0; i < path.length -1; i ++){
-      var key = path[i]
-      if(obj[key])
-        obj = obj[key]
-      else
-        obj[key] = {}
-    }
-    obj[path[path.length - 1]] = value
-  }
-
 function untangle(obj){
-  var paths = []
-    , reffed = []
-    , reffed_paths = []
-    , seen = []
-    , links = {}
-    , t = traverser(obj,{branch: branch, pre: true})
-  return t
-  
-  function branch(p){
-
-  if(p.value['*$'] || p.value['*='] || p.value['*^'])
-    throw new Error("object uses FORBIDDEN PROPERTY NAMES:"
-      + " '*$','*=' & '*^' have a special meaning in untangle.")
-
-    if(p.referenced){
-
-      assert.equal(p.index.repeated, p.repeated.indexOf(p.value))
-      if(-1 == reffed.indexOf(p.value)){
-        assert.ok(!p.reference,'reference')
-        reffed_paths[p.index.repeated] = [].concat(p.path)
-        reffed[p.index.repeated] = p.value
-      } else {
-        setPath(links,p.path,reffed_paths[p.index.repeated])        
-      }
-    }
-    paths.push([].concat(p.path))      
-    seen.push(p.value)
+  var repeats = []
+  var t = traverse(obj,{ branch: branch, pre: true })
     
-    if (p.reference) {
-      return {'[Repeated]': reffed_paths[p.index.repeated]}
+  return t
+
+  function branch (p){
+
+    if(p.referenced && -1 == repeats.indexOf(p.value)){
+      repeats.push(p.value)
+      return  { '*@': p.index.repeated
+              , '*=': p.copy() }
     }
+    else if (p.reference){
+      return { '*^': p.index.repeated }
+    }
+    if(p.value == null)
+      return null//this is a bug in traverser.
+
+    if(p.value['*$'] || p.value['*='] || p.value['*^'])
+      throw new Error("object uses FORBIDDEN PROPERTY NAMES:"
+        + " '*$','*=' & '*^' have a special meaning in untangle.")
+
     return p.copy()
   }
 }
-
-function get(obj,path){
-  for(i in path){
-    obj = obj[path[i]]
-  }
-  return obj
-}
-
 function retangle(obj){
-  return traverser(obj,{branch: branch})
+
+  var repeats = []
+  var t = traverse(obj,{ branch: branch})
+    
+  return obj
+
+  function branch (p){
   
-  function branch(p){
-    if(p.value && p.value['[Repeated]']){
-       return get(obj,p.value['[Repeated]'])
+    if(!p.value){
+      return p.value
     }
-    return p.copy()
+
+    if(p.value['*@'] !== undefined && p.value['*='] !== undefined){
+      repeats[p.value['*@']] = p.value['*=']
+      if(p.parent)
+        p.parent[p.key] = p.value['*=']
+      else
+        obj = p.value['*=']
+    }
+    else if (p.value['*^'] !== undefined){
+      p.parent[p.key] = repeats[p.value['*^']] //p.value.REPEATED
+//      return repeats[REPEATED_INDEX]
+    }
+    return p.each()
   }
 }
 
-function stringify(obj,func){
-  try {
-  return JSON.stringify(untangle(obj),func)
-  } catch (err){
-    throw err
-  }
+function stringify(obj,b,c){
+  return JSON.stringify(untangle(obj),b,c)
 }
-function parse(string,func){
-  return retangle(JSON.parse(string,func))
+
+function parse(obj,b,c){
+  return retangle(JSON.parse(obj,b,c))
 }
+
 

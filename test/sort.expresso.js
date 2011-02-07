@@ -4,9 +4,9 @@
   test topographical sort
 */
 
-var sort = require('trees/sort')
-  , describe = require('should').describe
-  , log = require('logger')
+var sort = require('trees').sort
+  , assert = require('assert')
+  , log = console.log
 
 function checkSort(graph){
 
@@ -23,14 +23,14 @@ function checkSort(graph){
     requires.forEach(checkSeen)
     
     function checkSeen(s){
-      describe(seen,"modules already seen")
-        .should.contain(s)
+      if(!~seen.indexOf(s))
+        assert.fail(seen,s, null, "is a member of", arguments.callee)
     }
     seen.push(module)  
   }
 }
 
-exports ['can topographical sort'] = function (test){
+exports ['can topographical sort'] = function (){
 var a
   , graph = 
 { 'remap/test/.examples/e': 
@@ -43,7 +43,7 @@ var a
   checkSort(graph)
 }
 
-exports ['can topographical sort2'] = function (test){
+exports ['can topographical sort2'] = function (){
 var var0,var1,var2,var3,
  graph = 
 { 'remap/modules': { 'path': var0 = {}
@@ -57,6 +57,6 @@ var var0,var1,var2,var3,
   checkSort(graph)
 }
 
-exports ['empty tree returns empty list'] = function (test){
-  test.deepEqual(sort({}),[])
+exports ['empty tree returns empty list'] = function (){
+  assert.deepEqual(sort({}),[])
 }
