@@ -1,11 +1,14 @@
 //equals
 
 var traverser = require('traverser')
+//  , style = require('color')
   , style = require('style')
   , inspect = require ('sys').inspect
-var styles = 
+/*var styles = 
     { red : style().red.styler
     , green: style().green.styler }
+*/
+var styles = require('style')
   
 exports.trees = trees
 exports.graphs = graphs
@@ -245,7 +248,7 @@ exports.string = function (x,y){
     l = y; s = x
   }
   if(!diff.eq)
-    for(i in l){
+    for(var i in l){
       if (y[i] !== x[i]){
         diff.left.message = 
           '' + styles.green(x.slice(0,i) || '') 

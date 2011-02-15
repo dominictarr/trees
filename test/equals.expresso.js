@@ -145,12 +145,13 @@ exports ['string equals'] = function (){
       , ['NaN',NaN,0]//stupid, but consistant with ==
       ]
 
-  neq.forEach(function (n){
+  neq.forEach(function (n,k){
     var r = equals.string(n[0],n[1])
     var eq = !(n.length == 3)
     test.equal(r.eq,eq)
     test.ok(r.message,"message property should exist")
-    log('string equals:', r.message)
+    log('string equals:', r.message, 'at:' + k)
+
     if(!eq)
       test.equal(r.at,n[2])
   })
