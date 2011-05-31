@@ -42,12 +42,6 @@ exports.copy = copy
 
 function copy (tree){
   return untangle.retangle(untangle.untangle(tree))
-  //return traverser(tree,{branch: branch})
-  
-/*  function branch (p){
-    if(!p.reference)
-      return p.copy()
-  }*/
 }
 
 exports.graphEqual = graphEqual
