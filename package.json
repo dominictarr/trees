@@ -5,17 +5,17 @@
   "homepage": "https://github.com/dominictarr/trees",
   "repository": "git://github.com/dominictarr/trees.git",
   "author": "Dominic Tarr <dominic.tarr@gmail.com>",
-  "main": "trees",
+  "main": "./trees.js",
   "directories": {
     "lib": "."
   },
   "dependencies":{
     "traverser": "0.0.x"
-  , "style": "0.0.x"
+  , "style": "0.1.x"
+  , "should": ">=0.0.4"
   },
   "devDependencies":{
     "expresso": "0.7.x"
-  , "should": ">=0.0.4"
   },
   "scripts": {
     "test": "expresso test/*.js"
