@@ -137,9 +137,9 @@ var wrong =
         , inspect: REF4
         , 'render/render2': {traverser: {'traverser/traverser2': REF8}, logger: REF7} } } } } }
         
-var untangle = require('trees').untangle
-  , equals = require('trees').equals
-  , inspect = require('sys').inspect
+var untangle = require('../').untangle
+  , equals = require('../').equals
+  , inspect = require('util').inspect
   , assert = require('assert')
   , log = console.log
   

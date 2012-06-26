@@ -4,8 +4,8 @@
   generates a colour coded message to show the difference.
 
 */
-var equals = require('trees').equals
-  , inspect = require('sys').inspect
+var equals = require('..').equals
+  , inspect = require('util').inspect
   , test = require('assert')
   , log = console.log
 //  , curry = require('curry')

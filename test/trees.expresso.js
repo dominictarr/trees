@@ -7,8 +7,8 @@ paths -> get all paths.
 */
 
 var tr
-var trees = require('trees')
-  , inspect = require('sys').inspect
+var trees = require('..')
+  , inspect = require('util').inspect
   , should = require('should')
   , assert = require('assert')
   

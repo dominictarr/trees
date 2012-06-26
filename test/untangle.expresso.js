@@ -1,7 +1,7 @@
 
-var t = require('trees').untangle
-  , equals = require('trees').equals
-  , inspect = require('sys').inspect
+var t = require('..').untangle
+  , equals = require('..').equals
+  , inspect = require('util').inspect
   , test = require('assert')
   
 exports ['can remove repeats from a object to be JSONed'] = function (){

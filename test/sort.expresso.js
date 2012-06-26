@@ -4,7 +4,7 @@
   test topographical sort
 */
 
-var sort = require('trees').sort
+var sort = require('..').sort
   , assert = require('assert')
   , log = console.log
 
