@@ -15,7 +15,7 @@
   , "should": ">=0.0.4"
   },
   "devDependencies":{
-    "expresso": "0.7.x"
+    "synct": "1"
   },
   "scripts": {
     "test": "expresso test/*.js"
